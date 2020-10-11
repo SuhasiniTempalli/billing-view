@@ -1,0 +1,214 @@
+manager:
+	signup screen:
+		1. name
+		2. emailId
+		3. managerId - username    // sushasini          yes
+		4. password
+		5. placeofbirth			
+		
+		A json structure with above details and a post request to mule url	yes
+		
+	login screen:
+		1. username/managerId
+		2. password
+	
+		A json structure with above details and a get request to mule url to validate
+	
+	reset screen:
+		1. emailId
+		2. managerId
+		3. placeofbirth
+		
+		A json structure with above details and a get request to mule url to validate
+		
+		update password: 
+			1. emailId
+			2. managerId
+			3. updated password
+		
+			A json structure with above details and a patch request to mule url to update the password
+	
+	
+project setup:
+	1. new project (button)
+		#form:
+			{ 
+				managerId: 1040170 (#session shoudl maintain and pass the managerId)
+				projectName: "partner portal"										
+				phases: 
+					#nested form
+					{
+						build: 40,    #key and value should be populated by user           yes
+						design: 30 (%)
+							#increment #decrement											  yes 					
+					},											
+				applicationCost:
+					{
+						complex:
+							{
+								build: 
+								design:
+								architecture:
+							},
+						simple:
+							{
+								build: 
+								design: 
+								architecture:
+							},
+						medium:
+							{
+								build: 
+								design:
+								architecture:
+							}
+					},
+				grantAccessTo: 10, 11
+			}
+	2. View projects: #button
+		o/p: #dropdown 										yes
+		i/p:	{
+					managerId: 1040170
+				}
+	3. view individual project: (/projectSetup/{projectname} - GET)
+		i/p:	{
+					managerId: 1040170,
+					projectName: ""
+				}	
+		o/p: #details
+	4. Delete projects: (/projectSetup/{projectname} - DELETE)
+		a. UI will pass the manager id (username) as queryParam      #queryParam/uriparam should be dynamic   yes
+		b. UI will pass the project name as uriParam		
+	5. update projects: (/projectSetup/{projectname} - PATCH)
+		a. UI will pass the manager id (username) as queryParam
+		b. UI will pass the project name as uriParam
+		c. body: 
+					phases:                          
+						{
+							build: 45,
+							design: 30 (in %)
+						}
+						(or/and)
+					applicationCost:
+						{
+							complex:
+								{
+									build: 
+									design:
+									architecture:
+								},
+							simple:
+								{
+									build: 
+									design: 
+									architecture:
+								},
+							medium:
+								{
+									build: 
+									design:
+									architecture:
+								}
+						}
+	
+	
+	
+30-09-2020
+
+Project Version:  another table 
+	1. create a new Milestone (/projectVersion - POST)
+		{
+			versionNumber: auto increment column at DB,  (not required for create)   				    -     PK
+			managerId: 1040170 (UI will pass the manager employee id based on the username)             -     FK
+			projectName: "partner portal", 																-     FK
+			milestone:
+			{
+				aug:
+				{
+					design:
+					{
+						complex: 8,
+						medium: 7,
+						simple: 4
+					},
+					buid:
+					{
+						complex: 8,
+						medium: 7,
+						simple: 4
+					},
+					changeRequest1: 4000,               (dynamic key-value pair)
+					changeRequest2: 5000   (currency)
+					billed: true/false,
+				},
+				sep:
+				{
+					design:
+					{
+						complex: 8,
+						edium: 7,
+						simple: 4
+					},
+					buid:
+					{
+						complex: 8,
+						medium: 7,
+						simple: 4
+					}
+				}
+			}
+		}
+			overallVersionCost: 100000	
+	2. View versions - (/projectVersion - GET)
+		a. UI will pass the manager id (username), projectName as queryParams
+		b. will retrieve the list of versions from DB and display in UI  
+	3. view individual version: (/projectVersion/{versionNumber} - GET)
+		a. UI will pass the manager id (username), projectName as queryParams
+		b. to get the individual project version details UI will pass the version number as uriParam		
+	4. Delete version: (/projectVersion/{versionNumber} - DELETE)
+		a. UI will pass the manager id (username), projectName as queryParams
+		b. UI will pass the version number as uriParam		
+	5. update version: (/projectVersion/{versionNumber} - PATCH)
+		a. UI will pass the manager id (username), projectName as queryParams
+		b. UI will pass the version number as uriParam
+		c. body:  
+				milestone:
+				{
+					aug:
+					{
+						design:
+						{
+							complex: 8,
+							medium: 7,
+							simple: 4
+						},
+						buid:
+						{
+							complex: 8,
+							medium: 7,
+							simple: 4
+						},
+						changeRequest1: 4000,               (dynamic key-value pair)
+						changeRequest2: 5000   (currency)
+						billed: true/false,
+					},
+					sep:
+					{
+						design:
+						{
+							complex: 8,
+							edium: 7,
+							simple: 4
+						},
+						buid:
+						{
+							complex: 8,
+							medium: 7,
+							simple: 4
+						}
+					}
+				}	
+
+    05-10-2020
+		1. grantAccessTo
+		2. downloading as a sheet
